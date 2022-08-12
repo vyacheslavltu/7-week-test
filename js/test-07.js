@@ -10,11 +10,15 @@
 
 //1. Palyginti du skaičius a ir b. Išvesti į konsolę, kuris didesnis arba jie lygūs. (4 taškai)
 printTaskDelimiter(1);
-let a = (b = 3);
+let a = getRandom(1, 300),
+  b = getRandom(1, 300);
+console.log(`Palyginti du skaičius a = ${a} ir b = ${b}`);
 console.log(
-  a >= ++b
-    ? `didesnis arba lygūs skaičius a = ${a}`
-    : `didesnis arba lygūs skaičius b = ${b}`
+  a != b
+    ? a > b
+      ? `didesnis skaičius a = ${a}`
+      : `didesnis skaičius b = ${b}`
+    : `lygūs skaičius ${a} = ${b}`
 );
 
 //2. Naudojant for ciklą, išvesti į konsolę skaičius nuo 1 iki 10. (5 taškai)
@@ -32,19 +36,28 @@ for (let index = -1; index < 10; ++index) {
 //4. Naudojant for ciklą, sugeneruoti penkis atsitiktinius skaičius nuo 1 iki 10. Išvesti juos konsolėje. (5 taškai)
 printTaskDelimiter(4);
 for (i of range(1, 5)) {
-  console.log(`atsitiktinis skaičius ${i} = ` + Math.floor(getRandom(i, 10)));
+  console.log(
+    `random value of an index ${i} = ` + Math.floor(getRandom(1, 10))
+  );
 }
 
 //5. Naudojant while ciklą, spausdinti atsitiktinius skaičius nuo 1 iki 10. Paskutinis atspausdintas skaičius turi būti 5. (7 taškai)
 printTaskDelimiter(5);
 let ind = 1;
 while (ind != 5) {
-  ind = Math.floor(getRandom(i, 10));
-  console.log(`spausdinam atsitiktinius skaičius.. ` + ind);
+  ind = getRandom(1, 10);
+  console.log(`random value = ` + ind);
 }
 
 //6. Sukurti masyvą, kurio ilgis būtų nuo 20 iki 30, o reikšmės būtų skaičiai nuo 10 iki 30. Surasti didžiausią masyvo reikšmę, NENAUDOJANT sort() bei Math.max() funkcijų. (7 taškai)
 printTaskDelimiter(6);
+let valMin = 10,
+  valMax = 30,
+  arrLength = getRandom(20, 30);
+[...rangeOfRandom(valMin, valMax, arrLength)].map((_, i) =>
+  console.log(`random value of an index ${i} = ${_}`)
+);
+
 //7. Sugeneruokite masyvą, kurio reikšmės atsitiktinės raidės A, B, C ir D, o ilgis 100. Suskaičiuokite kiek yra kiekvienos raidės. (7 taškai)
 printTaskDelimiter(7);
 //8. Parašyti funkciją - lygineSuma. Funkcijos parametrai - du kintamieji. Testų reikalavimai - abu kitamieji turi būti arba skaičiai arba masyvai(negali būti vienas skaičius, kitas masyvas). Jei kintamieji skaičiai, grąžinti skaičių sumą, jei kintamieji masyvai - grąžinti masyvų ilgių sumą. Jei abu kintamieji skaičiai arba masyvai, bet suma nelyginė - grąžinti tekstą, kad suma nelyginė. (10 taškų)
@@ -63,6 +76,11 @@ function* range(start, end) {
     yield i;
   }
 }
+function* rangeOfRandom(min, max, length) {
+  for (let i = 1; i <= length; i++) {
+    yield getRandom(min, max);
+  }
+}
 function getRandom(min, max) {
-  return Math.random() * (max - min) + min;
+  return Math.floor(Math.random() * (max - min) + min);
 }
